@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
   
     try {
-      await axios.post('http://localhost:4000/register', form);
+      await axios.post('https://backendhono.medium-jigyasu.workers.dev/register', form);
       navigate("/student-dashboard");
     } catch (err: any) {
       console.error("Error details:", err);
