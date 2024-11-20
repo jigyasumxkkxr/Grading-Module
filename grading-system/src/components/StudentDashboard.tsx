@@ -29,13 +29,13 @@ const StudentDashboard: React.FC = () => {
     const fetchCourses = async () => {
       try {
         // Fetch all courses
-        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/courses", {
+        const response = await axios.get("https://dbms-backend-2.onrender.com/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(response.data);
 
         // Fetch enrolled courses with grades
-        const enrolledResponse = await axios.get("https://backendhono.medium-jigyasu.workers.dev/student/courses", {
+        const enrolledResponse = await axios.get("https://dbms-backend-2.onrender.com/student/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setEnrolledCourses(enrolledResponse.data);
@@ -50,7 +50,7 @@ const StudentDashboard: React.FC = () => {
   const enrollInCourse = async (courseId: number) => {
     try {
       const response = await axios.post(
-        "https://backendhono.medium-jigyasu.workers.dev/student/course",
+        "https://dbms-backend-2.onrender.com/student/course",
         { courseId },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -74,7 +74,7 @@ const StudentDashboard: React.FC = () => {
   const deEnrollFromCourse = async (courseId: number) => {
     try {
       const response = await axios.delete(
-        `https://backendhono.medium-jigyasu.workers.dev/student/course/${courseId}`,
+        `https://dbms-backend-2.onrender.com/student/course/${courseId}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
 

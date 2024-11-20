@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
   
     try {
-      await axios.post('https://backendhono.medium-jigyasu.workers.dev/register', form);
+      await axios.post('https://dbms-backend-2.onrender.com/register', form);
       navigate("/student-dashboard");
     } catch (err: any) {
       console.error("Error details:", err);

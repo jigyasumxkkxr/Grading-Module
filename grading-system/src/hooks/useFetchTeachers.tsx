@@ -8,7 +8,7 @@ export const useFetchTeachers = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const response = await axios.get('https://backendhono.medium-jigyasu.workers.dev/teachers');
+        const response = await axios.get('https://dbms-backend-2.onrender.com/teachers');
         setTeachers(response.data);
       } catch (error) {
         console.error('Error fetching teachers:', error);
