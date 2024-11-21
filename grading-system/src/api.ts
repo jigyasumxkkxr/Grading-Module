@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://dbms-backend-2.onrender.com/", // Adjust backend URL if needed
+  baseURL: "https://backendhono.medium-jigyasu.workers.dev", // Adjust backend URL if needed
 });
 
 export const login = (data: any) => API.post("/login", data);

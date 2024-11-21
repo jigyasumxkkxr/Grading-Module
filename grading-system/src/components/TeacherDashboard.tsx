@@ -29,7 +29,7 @@ const TeacherDashboard: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("https://dbms-backend-2.onrender.com/teacher/courses", {
+        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/teacher/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(response.data);
@@ -47,7 +47,7 @@ const TeacherDashboard: React.FC = () => {
   const handleCourseClick = async (courseId: number) => {
     try {
       const response = await axios.get(
-        `https://dbms-backend-2.onrender.com/teacher/course/${courseId}/students`,
+        `https://backendhono.medium-jigyasu.workers.dev/teacher/course/${courseId}/students`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       setStudents(response.data);
@@ -88,7 +88,7 @@ const TeacherDashboard: React.FC = () => {
             : Number(grade); // Keep numeric marks as they are
 
         await axios.post(
-          `https://dbms-backend-2.onrender.com/teacher/course/${selectedCourse.id}/student/${selectedStudent.id}/grade`,
+          `https://backendhono.medium-jigyasu.workers.dev/teacher/course/${selectedCourse.id}/student/${selectedStudent.id}/grade`,
           { grade: numericMarks }, // Send the numeric marks to the backend
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );

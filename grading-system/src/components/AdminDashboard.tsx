@@ -38,7 +38,7 @@ const AdminDashboard = () => {
     } else {
       const fetchTeachers = async () => {
         try {
-          const response = await axios.get("https://dbms-backend-2.onrender.com/teachers", {
+          const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/teachers", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
           setTeachers(response.data);
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.get("https://dbms-backend-2.onrender.com/admin/courses", {
+          const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
           setCourses(response.data);
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
       // Update existing course
       try {
         await axios.put(
-          `https://dbms-backend-2.onrender.com/admin/course/${selectedCourse.id}`,
+          `https://backendhono.medium-jigyasu.workers.dev/admin/course/${selectedCourse.id}`,
           form,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
         setForm({ title: "", description: "", teacherId: "" });
         setSelectedCourse(null); // Reset selected course
         // Re-fetch courses after update
-        const updatedCourses = await axios.get("https://dbms-backend-2.onrender.com/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
@@ -90,14 +90,14 @@ const AdminDashboard = () => {
       // Create new course
       try {
         await axios.post(
-          "https://dbms-backend-2.onrender.com/admin/course",
+          "https://backendhono.medium-jigyasu.workers.dev/admin/course",
           form,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
         alert("Course created successfully");
         setForm({ title: "", description: "", teacherId: "" });
         // Re-fetch courses after creation
-        const updatedCourses = await axios.get("https://dbms-backend-2.onrender.com/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
@@ -122,12 +122,12 @@ const AdminDashboard = () => {
   const handleCourseDelete = async (courseId: number) => {
     if (window.confirm("Are you sure you want to delete this course?")) {
       try {
-        await axios.delete(`https://dbms-backend-2.onrender.com/admin/course/${courseId}`, {
+        await axios.delete(`https://backendhono.medium-jigyasu.workers.dev/admin/course/${courseId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         alert("Course deleted successfully");
         // Re-fetch courses after deletion
-        const updatedCourses = await axios.get("https://dbms-backend-2.onrender.com/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
