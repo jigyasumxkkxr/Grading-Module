@@ -22,8 +22,11 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <div className="text-2xl px-2 font-semibold hover:bg-black hover:text-white hover:cursor-unicorn">
-                            MODULE FOR GRADING AND GRADESHEET
+                        <div className="flex items-center">
+                            
+                            <div className="text-2xl px-2 font-semibold hover:bg-black hover:text-white">
+                                MODULE FOR GRADING AND GRADESHEET
+                            </div>
                         </div>
                         <div className="text-sm flex flex-col items-center">
                             <div className="flex gap-8">

@@ -44,7 +44,7 @@ const LoginAdmin = () => {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             className="p-2 border rounded w-full"
           />
-          <button type="submit" className="bg-fuchsia-600 text-white hover:bg-fuchsia-400 hover:shadow-md hover:shadow-fuchsia-200 hover:text-black px-4 py-2 rounded w-full">
+          <button type="submit" className="bg-fuchsia-200 text-fuchsia-600 hover:bg-fuchsia-600 hover:shadow-md hover:shadow-fuchsia-200 hover:text-white px-4 py-2 rounded w-full">
           {loading ? (
                 <div className="flex items-center justify-center">
                   <span className="loader border-t-transparent border-2  border-white w-4 h-4 rounded-full animate-spin mr-2"></span>

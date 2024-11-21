@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {  useNavigate } from "react-router-dom";
+import student from "../assets/image 2304.svg"
 
 interface Teacher {
   id: number;
   name: string;
 }
 
-interface Grade {
-    id: number;
-    marks: number;
-}
 
 interface Course {
   id: number;
@@ -19,12 +16,17 @@ interface Course {
   teacherId: number;
   teacher: Teacher; // Define the 'teacher' object correctly with a 'name' field
   enrolled: boolean; // Whether the student is enrolled in the course
-  grades: Grade[]; // Grade for the enrolled course
+  grade: number; // Grade for the enrolled course
+}
+
+const refresh = () => {
+  window.location.reload();
 }
 
 const StudentDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +45,8 @@ const StudentDashboard: React.FC = () => {
         setEnrolledCourses(enrolledResponse.data);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -64,7 +68,7 @@ const StudentDashboard: React.FC = () => {
       if (enrolledCourse) {
         setEnrolledCourses((prevCourses) => [
           ...prevCourses,
-          { ...enrolledCourse, enrolled: true, grades: [] }, // Ensure grades is an empty array
+          { ...enrolledCourse, enrolled: true }, // Ensure grades is an empty array
         ]);
       }
     } catch (error) {
@@ -105,30 +109,42 @@ const StudentDashboard: React.FC = () => {
     localStorage.removeItem("role");
     navigate("/");
   }
+  
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-16 h-16 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between">
-        <h2 className="text-xl mb-4">Student Dashboard</h2>
-        <p onClick={logout} className="cursor-pointer">Logout</p>
+    <div className="py-4">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
+      <div className="flex justify-between items-center border-b px-4 border-black pb-4">
+        <div className="flex items-center gap-2">
+          <img src={student} alt="" className="h-8" />
+          <h2 className="text-2xl font-semibold cursor-pointer" onClick={refresh}>Student Dashboard</h2>
+        </div>
+        <p onClick={logout} className="cursor-pointer hover:underline">Logout</p>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 px-4 mt-4">
         {/* Available Courses Section */}
         <div className="space-y-4">
-          <h3 className="text-lg mb-4">Available Courses</h3>
+          <h3 className="text-lg mb-4 text-center">Available Courses</h3>
           {courses.map((course) => {
             const enrolled = enrolledCourses.some(
               (enrolledCourse) => enrolledCourse.id === course.id
             );
             return (
-              <div key={course.id} className="border p-4 rounded shadow-md space-y-2">
+              <div key={course.id} className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2">
                 <h4 className="text-lg font-semibold">{course.title}</h4>
                 <p>{course.description}</p>
-                <p>Teacher: {course.teacher ? course.teacher.name : "No assigned Teacher"}</p>
+                <p className="text-gray-800">Teacher: {course.teacher ? course.teacher.name : "No assigned Teacher"}</p>
                 {!enrolled ? (
                   <button
                     onClick={() => enrollInCourse(course.id)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                    className="text-blue-500 bg-blue-200 hover:text-white hover:bg-blue-600 px-3 py-1 rounded mt-2"
                   >
                     Enroll
                   </button>
@@ -142,26 +158,35 @@ const StudentDashboard: React.FC = () => {
 
         {/* Enrolled Courses Section */}
         <div className="space-y-4">
-          <h3 className="text-lg mb-4">Enrolled Courses</h3>
-          {enrolledCourses.map((course) => (
-            <div key={course.id} className="border p-4 rounded shadow-md space-y-2">
+          <h3 className="text-lg mb-4 text-center">Enrolled Courses</h3>
+          {enrolledCourses && enrolledCourses.length > 0 ? (
+          enrolledCourses.map((course) => (
+            <div
+              key={course.id}
+              className="border p-4 rounded shadow-md space-y-2 bg-white shadow-fuchsia-200"
+            >
               <h4 className="text-lg font-semibold">{course.title}</h4>
               <p>{course.description}</p>
               <p>Teacher: {course.teacher ? course.teacher.name : "No assigned Teacher"}</p>
               <p className="text-sm text-gray-600">
                 Your Grade:{" "}
-                {course?.grades?.[0]?.marks
-                  ? convertMarksToGrade(course.grades[0].marks)
+                {course?.grade? convertMarksToGrade(course.grade)
                   : "Pending"}
               </p>
               <button
                 onClick={() => deEnrollFromCourse(course.id)}
-                className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+                className={`text-red-500 bg-red-200 hover:bg-red-600 hover:text-white px-3 py-1 rounded mt-2 ${
+                  course.grade !== null ? "cursor-not-allowed opacity-50" : ""
+                }`}
+                disabled={course.grade !== null}
               >
                 De-enroll
               </button>
             </div>
-          ))}
+          ))
+        ) : (
+          <p className="text-center text-gray-500 mt-4">No enrolled courses.</p>
+        )}
         </div>
       </div>
     </div>

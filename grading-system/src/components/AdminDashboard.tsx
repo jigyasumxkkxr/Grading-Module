@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import admin from "../assets/image 641.svg"
 
 interface Teacher {
   id: number;
@@ -14,6 +15,9 @@ interface Course {
   description: string;
   teacherId: number;
   teacher: Teacher;
+}
+const refresh = () => {
+  window.location.reload();
 }
 
 const AdminDashboard = () => {
@@ -155,15 +159,18 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="py-4">
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
-      <div className="flex justify-between">
-        <h2 className="text-2xl mb-4 font-semibold">Admin Panel</h2>
+      <div className="flex justify-between items-center border-b border-black pb-4 px-4">
+        <div className="flex items-center gap-2">
+          <img src={admin} alt="" className="h-10" />
+          <h2 className="text-2xl font-semibold hover:cursor-pointer" onClick={refresh}>Admin Panel</h2>
+        </div>
         <p onClick={logout} className="cursor-pointer hover:underline">Logout</p>
       </div>
 
       {/* Form for creating or editing a course */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 px-4">
         <h3 className="text-lg pt-8">{selectedCourse ? "Edit Course" : "Create a New Course"}</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex gap-8">
@@ -193,21 +200,21 @@ const AdminDashboard = () => {
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             className="p-2 border rounded w-full"
           />
-          <button type="submit" className="bg-fuchsia-500 text-white hover:text-black px-4 py-2 rounded">
+          <button type="submit" className="bg-fuchsia-200 text-fuchsia-600 hover:text-white hover:bg-fuchsia-600 px-4 py-2 rounded">
             {selectedCourse ? "Update Course" : "Create Course"}
           </button>
         </form>
       </div>
 
       {/* Displaying existing courses */}
-      <div className="mt-8">
+      <div className="mt-8 px-4">
         <h3 className="text-xl mb-4">Existing Courses</h3>
         {courses.length === 0 ? (
           <p>No courses available.</p>
         ) : (
           <ul>
             {courses.map((course) => (
-              <li key={course.id} className="flex justify-between items-center mb-4 bg-white py-4 shadow-md px-4 shadow-fuchsia-200">
+              <li key={course.id} className="flex justify-between items-center mb-4 bg-white py-4 shadow-md px-4 shadow-fuchsia-200 rounded">
                 <span>{course.title} - {course.teacher.name}</span>
                 <div className="flex space-x-4">
                   <button

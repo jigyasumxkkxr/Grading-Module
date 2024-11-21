@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import teacher from "../assets/image 2314.svg"
 
 interface Student {
   id: number;
@@ -34,9 +35,9 @@ const TeacherDashboard: React.FC = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -63,6 +64,10 @@ const TeacherDashboard: React.FC = () => {
   const handleGradeChange = (student: Student) => {
     setSelectedStudent(student);
   };
+
+  const refresh = () => {
+    window.location.reload();
+  }
 
   // Validate grade (either numeric or letter grade)
   const isValidGrade = (input: string) => {
@@ -128,24 +133,32 @@ const TeacherDashboard: React.FC = () => {
     navigate("/");
   }
 
-  return (
-    <div className="p-4">
-      <div className="flex justify-between">
-      <h2 className="text-xl mb-4">Teacher Dashboard</h2>
-      <p onClick={logout} className="cursor-pointer">Logout</p>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-16 h-16 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
+    );
+  }
 
-      {loading ? (
-        <p>Loading courses...</p>
-      ) : (
-        <div className="grid grid-cols-2 gap-4">
+  return (
+    <div className="py-4">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
+      <div className="flex justify-between px-4 pb-4 border-b border-black items-center">
+        <div className="flex items-center gap-2">
+          <img src={teacher} alt="" className="h-10" />
+          <h2 className="text-2xl font-semibold hover:cursor-pointer" onClick={refresh}>Teacher Dashboard</h2>
+        </div>
+        <p onClick={logout} className="cursor-pointer hover:underline">Logout</p>
+      </div>
+        <div className="grid grid-cols-2 gap-4 px-4">
           {/* Courses Assigned to Teacher */}
           <div className="space-y-4">
-            <h3 className="text-lg mb-4">Assigned Courses</h3>
+            <h3 className="text-lg pt-4 text-center">Assigned Courses</h3>
             {courses.map((course) => (
               <div
                 key={course.id}
-                className="border p-4 rounded shadow-md space-y-2 cursor-pointer"
+                className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2 cursor-pointer"
                 onClick={() => handleCourseClick(course.id)}
               >
                 <h4 className="text-lg font-semibold">{course.title}</h4>
@@ -158,13 +171,13 @@ const TeacherDashboard: React.FC = () => {
           <div className="space-y-4">
             {selectedCourse && (
               <>
-                <h3 className="text-lg mb-4">Enrolled Students - {selectedCourse.title}</h3>
+                <h3 className="text-lg pt-4 text-center">Enrolled Students - {selectedCourse.title}</h3>
                 {students.map((student) => (
-                  <div key={student.id} className="border p-4 rounded shadow-md space-y-2">
+                  <div key={student.id} className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2 flex items-center justify-between">
                     <h4 className="text-lg font-semibold">{student.name}</h4>
                     <button
                       onClick={() => handleGradeChange(student)}
-                      className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                      className="text-blue-500 bg-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1 rounded"
                     >
                       Assign Grade
                     </button>
@@ -173,27 +186,28 @@ const TeacherDashboard: React.FC = () => {
 
                 {selectedStudent && (
                   <div className="mt-4">
-                    <h4 className="text-lg font-semibold">Assign Grade to {selectedStudent.name}</h4>
-                    <input
-                      type="text"
-                      placeholder="Enter grade (A, B, C, D, F or numeric value)"
-                      value={grade}
-                      onChange={(e) => setGrade(e.target.value)}
-                      className="border p-2 rounded mt-2"
-                    />
-                    <button
-                      onClick={handleAssignGrade}
-                      className="bg-green-500 text-white px-4 py-2 rounded mt-2"
-                    >
-                      Submit Grade
-                    </button>
+                    <h4 className="text-lg">Assign Grade to {selectedStudent.name}</h4>
+                    <div className="flex justify-between items-center gap-32">
+                      <input
+                        type="text"
+                        placeholder="Enter grade (A, B, C, D, F or numeric value)"
+                        value={grade}
+                        onChange={(e) => setGrade(e.target.value)}
+                        className="border px-3 py-1 rounded-sm mt-2 grow"
+                      />
+                      <button
+                        onClick={handleAssignGrade}
+                        className="text-green-600 bg-green-300 hover:text-white hover:bg-green-600 px-3 py-1 rounded mt-2 mr-2"
+                      >
+                        Submit Grade
+                      </button>
+                    </div>
                   </div>
                 )}
               </>
             )}
           </div>
         </div>
-      )}
     </div>
   );
 };

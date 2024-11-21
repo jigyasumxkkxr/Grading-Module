@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import grade from "../assets/image 1035.svg"
 const refresh = () => {
   window.location.reload();
 }
 const Navbar = () => (
   <div className="p-6 text-black flex justify-between border-b border-black ">
-    <div className="flex items-center">
-      {/* <img src={logo} alt="" className="h-24" /> */}
+    <div className="flex items-center gap-2">
+      <div>
+        <img src={grade} alt="" className="h-8" />
+      </div>
       <h1 className="font-bold text-2xl cursor-pointer" onClick={refresh}>MODULE FOR GRADING AND GRADESHEET</h1>
     </div>
     <div>
