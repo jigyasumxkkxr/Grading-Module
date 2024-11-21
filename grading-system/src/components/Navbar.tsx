@@ -12,6 +12,7 @@ const Navbar = () => (
       <h1 className="font-bold text-2xl cursor-pointer" onClick={refresh}>MODULE FOR GRADING AND GRADESHEET</h1>
     </div>
     <div>
+      <Link className="px-2 hover:underline" to="/docs">Docs</Link>
       <Link to="https://github.com/jigyasumxkkxr/Grading-Module" className="px-2 hover:underline" target="_blank" rel="noopener noreferrer">Github</Link>
       <Link className="px-2 hover:underline"  to="/login">Login</Link>
       <Link className="px-2 hover:underline" to="/register">Register</Link>

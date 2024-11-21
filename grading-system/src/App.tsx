@@ -6,6 +6,7 @@ import StudentDashboard from "./components/StudentDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
 import { Home } from "./components/Home";
 import LoginAdmin from "./components/LoginAdmin";
+import { Docs } from "./components/docs";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard/>} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard/>} />
+        <Route path="/docs" element={<Docs/>} />
       </Routes>
     </Router>
   );

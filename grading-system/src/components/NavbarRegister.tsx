@@ -13,6 +13,7 @@ const NavbarRegister = () => (
         <h1 className="font-bold text-2xl cursor-pointer" onClick={refresh}>MODULE FOR GRADING AND GRADESHEET</h1>
       </div>
     <div>
+      <Link className="px-2 hover:underline" to="/docs">Docs</Link>
       <Link className="px-2" to="/login">Login</Link>
     </div>
   </div>
