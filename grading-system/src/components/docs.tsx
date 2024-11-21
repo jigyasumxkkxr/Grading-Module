@@ -235,27 +235,27 @@ export const Docs = () => {
                     <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Jigyasu :</p>
-                            <p>2022ume0209@gmail.com</p>
+                            <p>2022ume0209@iitjammu.ac.in</p>
                         </div>
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Kashish :</p>
-                            <p>2022umt0171@gmail.com</p>
+                            <p>2022umt0171@iitjammu.ac.in</p>
                         </div>
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Mohit Pooniya :</p>
-                            <p>2022umt0173@gmail.com</p>
+                            <p>2022umt0173@iitjammu.ac.in</p>
                         </div>
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Sutar Pranav Prakash :</p>
-                            <p>2022umt0186@gmail.com</p>
+                            <p>2022umt0186@iitjammu.ac.in</p>
                         </div>
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Shubham Mandal :</p>
-                            <p>2022umt0183@gmail.com</p>
+                            <p>2022umt0183@iitjammu.ac.in</p>
                         </div>
                 </div>
             </div>

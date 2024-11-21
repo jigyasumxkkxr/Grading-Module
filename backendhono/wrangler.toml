@@ -1,0 +1,28 @@
+name = "backendhono"
+main = "src/index.ts"
+compatibility_date = "2024-11-20"
+node_compat = true
+env = "./.env"
+
+[vars]
+DATABASE_URL = "postgresql://neondb_owner:Lokwd8pim3MR@ep-blue-mud-a5tpy56w.us-east-2.aws.neon.tech/neondb?sslmode=require"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
+
+# [observability]
+# enabled = true
+# head_sampling_rate = 1
