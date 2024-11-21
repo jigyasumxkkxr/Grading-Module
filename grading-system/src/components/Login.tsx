@@ -5,17 +5,21 @@ import NavbarLogin from "./NavbarLogin";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await login(form);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.jwt);
       localStorage.setItem("role", data.user.role);
       navigate("/dashboard");
     } catch (err) {
       alert("Login failed");
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or failure
     }
   };
 
@@ -41,7 +45,14 @@ const Login = () => {
             className="p-2 border rounded w-full"
           />
           <button type="submit" className="bg-fuchsia-600 text-white hover:bg-fuchsia-400 hover:shadow-md hover:shadow-fuchsia-200 hover:text-black px-4 py-2 rounded w-full">
-            Login
+          {loading ? (
+                <div className="flex items-center justify-center">
+                  <span className="loader border-t-transparent border-2  border-white w-4 h-4 rounded-full animate-spin mr-2"></span>
+                  Loading...
+                </div>
+              ) : (
+                "Login"
+              )}
           </button>
         </form>
       </div></div>

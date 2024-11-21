@@ -12,7 +12,7 @@ export const Home = () => {
                 <div className="h-full"> 
                     <img src={homeImage} alt="" className="h-96" />
                 </div>
-                <div className="flex flex-col justify-start text-center gap-8">
+                <div className="flex flex-col justify-start text-center gap-6">
                     <div>
                         <div className="text-xl">
                             Indian Institute of Technology, Jammu
@@ -22,28 +22,28 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <div className="text-2xl font-semibold">
+                        <div className="text-2xl px-2 font-semibold hover:bg-black hover:text-white hover:cursor-unicorn">
                             MODULE FOR GRADING AND GRADESHEET
                         </div>
-                        <div className="text-sm flex flex-col">
-                            <div>
-                                Jigyasu 2022ume0209
+                        <div className="text-sm flex flex-col items-center">
+                            <div className="flex gap-8">
+                                <span>Jigyasu</span> <span>2022UME0209</span>
                             </div>
-                            <div>
-                                Kashish 2022umt0171
+                            <div className="flex gap-8"> 
+                                <span>Kashish</span> <span>2022UMT0171</span>
                             </div>
-                            <div>
-                                Mohit pooniya 2022umt0173
+                            <div className="flex gap-8">
+                                <span>Mohit Pooniya</span> <span>2022UMT0173</span>
                             </div>
-                            <div>
-                                Sutar pranav Prakash 2022umt0186
+                            <div className="flex gap-8">
+                                <span>Sutar Pranav Prakash</span> <span>2022UMT0186</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex gap-1 justify-end pr-8">
-                For Admin login <Link to={"/login-admin"} className="underline">click here</Link>
+                For Admin login <Link to={"/login-admin"} className="hover:underline">click here</Link>
             </div>
         </div>
     )

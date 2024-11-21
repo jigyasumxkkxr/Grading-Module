@@ -27,6 +27,7 @@ const AdminDashboard = () => {
     teacherId: "",
   });
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // Redirect if not admin
   useEffect(() => {
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
+          const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/admin/courses", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
           setCourses(response.data);
@@ -60,6 +61,8 @@ const AdminDashboard = () => {
 
       fetchTeachers();
       fetchCourses();
+      Promise.all([fetchTeachers(), fetchCourses()])
+        .finally(() => setLoading(false));
     }
   }, [role, navigate]);
 
@@ -70,7 +73,7 @@ const AdminDashboard = () => {
       // Update existing course
       try {
         await axios.put(
-          `https://backendhono.medium-jigyasu.workers.dev/admin/course/${selectedCourse.id}`,
+          `https://backendhono.medium-jigyasu.workers.dev/api/admin/course/${selectedCourse.id}`,
           form,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
@@ -78,7 +81,7 @@ const AdminDashboard = () => {
         setForm({ title: "", description: "", teacherId: "" });
         setSelectedCourse(null); // Reset selected course
         // Re-fetch courses after update
-        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
@@ -90,14 +93,14 @@ const AdminDashboard = () => {
       // Create new course
       try {
         await axios.post(
-          "https://backendhono.medium-jigyasu.workers.dev/admin/course",
+          "https://backendhono.medium-jigyasu.workers.dev/api/admin/course",
           form,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
         alert("Course created successfully");
         setForm({ title: "", description: "", teacherId: "" });
         // Re-fetch courses after creation
-        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
@@ -122,12 +125,12 @@ const AdminDashboard = () => {
   const handleCourseDelete = async (courseId: number) => {
     if (window.confirm("Are you sure you want to delete this course?")) {
       try {
-        await axios.delete(`https://backendhono.medium-jigyasu.workers.dev/admin/course/${courseId}`, {
+        await axios.delete(`https://backendhono.medium-jigyasu.workers.dev/api/admin/course/${courseId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         alert("Course deleted successfully");
         // Re-fetch courses after deletion
-        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/admin/courses", {
+        const updatedCourses = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/admin/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(updatedCourses.data);
@@ -143,12 +146,20 @@ const AdminDashboard = () => {
     navigate("/");
   }
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-16 h-16 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4">
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
       <div className="flex justify-between">
         <h2 className="text-2xl mb-4 font-semibold">Admin Panel</h2>
-        <p onClick={logout} className="cursor-pointer">Logout</p>
+        <p onClick={logout} className="cursor-pointer hover:underline">Logout</p>
       </div>
 
       {/* Form for creating or editing a course */}
@@ -182,7 +193,7 @@ const AdminDashboard = () => {
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             className="p-2 border rounded w-full"
           />
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          <button type="submit" className="bg-fuchsia-500 text-white hover:text-black px-4 py-2 rounded">
             {selectedCourse ? "Update Course" : "Create Course"}
           </button>
         </form>
@@ -190,24 +201,24 @@ const AdminDashboard = () => {
 
       {/* Displaying existing courses */}
       <div className="mt-8">
-        <h3 className="text-lg">Existing Courses</h3>
+        <h3 className="text-xl mb-4">Existing Courses</h3>
         {courses.length === 0 ? (
           <p>No courses available.</p>
         ) : (
           <ul>
             {courses.map((course) => (
-              <li key={course.id} className="flex justify-between items-center mb-4">
+              <li key={course.id} className="flex justify-between items-center mb-4 bg-white py-4 shadow-md px-4 shadow-fuchsia-200">
                 <span>{course.title} - {course.teacher.name}</span>
                 <div className="flex space-x-4">
                   <button
                     onClick={() => handleCourseSelect(course)}
-                    className="text-blue-500"
+                    className="text-blue-500 bg-blue-200 px-3 py-1 rounded hover:bg-blue-600 hover:text-white"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleCourseDelete(course.id)}
-                    className="text-red-500"
+                    className="text-red-500 bg-red-200 px-3 py-1 rounded hover:bg-red-600 hover:text-white"
                   >
                     Delete
                   </button>

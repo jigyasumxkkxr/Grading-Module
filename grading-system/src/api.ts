@@ -4,6 +4,7 @@ const API = axios.create({
   baseURL: "https://backendhono.medium-jigyasu.workers.dev", // Adjust backend URL if needed
 });
 
+
 export const login = (data: any) => API.post("/login", data);
 export const register = (data: any) => API.post("/register", data);
 export const createCourse = (data: any, token: string) =>

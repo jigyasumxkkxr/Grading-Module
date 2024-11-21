@@ -11,19 +11,23 @@ const Register = () => {
     role: "STUDENT",
   });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+    setLoading(true);
     try {
-      await axios.post('https://backendhono.medium-jigyasu.workers.dev/register', form);
+      const { data } = await axios.post('https://backendhono.medium-jigyasu.workers.dev/register', form);
+      localStorage.setItem("token", data.jwt);
+      localStorage.setItem("role", data.user.role);
       navigate("/student-dashboard");
     } catch (err: any) {
       console.error("Error details:", err);
-  
       const errorMessage =
         err.response?.data?.error || err.message || "An unexpected error occurred";
       alert(`Registration failed: ${errorMessage}`);
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or failure
     }
   };
   
@@ -67,7 +71,14 @@ const Register = () => {
             <option value="TEACHER">Teacher</option>
           </select>
           <button type="submit" className="bg-fuchsia-600 text-white hover:bg-fuchsia-400 hover:shadow-md hover:shadow-fuchsia-200 hover:text-black px-4 py-2 rounded w-full">
-            Register
+          {loading ? (
+                <div className="flex items-center justify-center">
+                  <span className="loader border-t-transparent border-2  border-white w-4 h-4 rounded-full animate-spin mr-2"></span>
+                  Loading...
+                </div>
+              ) : (
+                "Login"
+              )}
           </button>
         </form>
       </div>

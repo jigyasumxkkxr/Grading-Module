@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {  useNavigate } from "react-router-dom";
 
 interface Teacher {
   id: number;
@@ -24,18 +25,19 @@ interface Course {
 const StudentDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         // Fetch all courses
-        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/courses", {
+        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(response.data);
 
         // Fetch enrolled courses with grades
-        const enrolledResponse = await axios.get("https://backendhono.medium-jigyasu.workers.dev/student/courses", {
+        const enrolledResponse = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/student/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setEnrolledCourses(enrolledResponse.data);
@@ -50,7 +52,7 @@ const StudentDashboard: React.FC = () => {
   const enrollInCourse = async (courseId: number) => {
     try {
       const response = await axios.post(
-        "https://backendhono.medium-jigyasu.workers.dev/student/course",
+        "https://backendhono.medium-jigyasu.workers.dev/api/student/course",
         { courseId },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -74,7 +76,7 @@ const StudentDashboard: React.FC = () => {
   const deEnrollFromCourse = async (courseId: number) => {
     try {
       const response = await axios.delete(
-        `https://backendhono.medium-jigyasu.workers.dev/student/course/${courseId}`,
+        `https://backendhono.medium-jigyasu.workers.dev/api/student/course/${courseId}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
 
@@ -98,10 +100,18 @@ const StudentDashboard: React.FC = () => {
     if (marks >= 50) return "E";
     return "F"; // F for marks below 50
   };
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+  }
 
   return (
     <div className="p-4">
-      <h2 className="text-xl mb-4">Student Dashboard</h2>
+      <div className="flex justify-between">
+        <h2 className="text-xl mb-4">Student Dashboard</h2>
+        <p onClick={logout} className="cursor-pointer">Logout</p>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {/* Available Courses Section */}
         <div className="space-y-4">

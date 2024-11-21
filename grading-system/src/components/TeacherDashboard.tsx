@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface Student {
   id: number;
@@ -29,7 +30,7 @@ const TeacherDashboard: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/teacher/courses", {
+        const response = await axios.get("https://backendhono.medium-jigyasu.workers.dev/api/teacher/courses", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setCourses(response.data);
@@ -47,7 +48,7 @@ const TeacherDashboard: React.FC = () => {
   const handleCourseClick = async (courseId: number) => {
     try {
       const response = await axios.get(
-        `https://backendhono.medium-jigyasu.workers.dev/teacher/course/${courseId}/students`,
+        `https://backendhono.medium-jigyasu.workers.dev/api/teacher/course/${courseId}/students`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       setStudents(response.data);
@@ -88,7 +89,7 @@ const TeacherDashboard: React.FC = () => {
             : Number(grade); // Keep numeric marks as they are
 
         await axios.post(
-          `https://backendhono.medium-jigyasu.workers.dev/teacher/course/${selectedCourse.id}/student/${selectedStudent.id}/grade`,
+          `https://backendhono.medium-jigyasu.workers.dev/api/teacher/course/${selectedCourse.id}/student/${selectedStudent.id}/grade`,
           { grade: numericMarks }, // Send the numeric marks to the backend
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
@@ -120,10 +121,19 @@ const TeacherDashboard: React.FC = () => {
         return 0;
     }
   };
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+  }
 
   return (
     <div className="p-4">
+      <div className="flex justify-between">
       <h2 className="text-xl mb-4">Teacher Dashboard</h2>
+      <p onClick={logout} className="cursor-pointer">Logout</p>
+      </div>
 
       {loading ? (
         <p>Loading courses...</p>
