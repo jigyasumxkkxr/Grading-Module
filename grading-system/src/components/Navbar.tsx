@@ -14,6 +14,7 @@ const Navbar = () => (
     <div>
       <Link className="px-2 hover:underline" to="/docs">Docs</Link>
       <Link to="https://github.com/jigyasumxkkxr/Grading-Module" className="px-2 hover:underline" target="_blank" rel="noopener noreferrer">Github</Link>
+      <Link to="https://buymeacoffee.com/jigyasumakkxr" className="px-2 hover:underline" target="_blank" rel="noopener noreferrer">Buy me a Coffee</Link>
       <Link className="px-2 hover:underline"  to="/login">Login</Link>
       <Link className="px-2 hover:underline" to="/register">Register</Link>
     </div>

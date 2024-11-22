@@ -14,6 +14,7 @@ const NavbarRegister = () => (
       </div>
     <div>
       <Link className="px-2 hover:underline" to="/docs">Docs</Link>
+      <Link to="https://buymeacoffee.com/jigyasumakkxr" className="px-2 hover:underline" target="_blank" rel="noopener noreferrer">Buy me a Coffee</Link>
       <Link className="px-2" to="/login">Login</Link>
     </div>
   </div>
