@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavbarRegister from "./NavbarRegister";
+import registerimg from "../assets/1866843a05019cd68f48f4fde5232f8c-sticker 1.png"
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -35,10 +36,14 @@ const Register = () => {
 
   return (
     <div className="flex flex-col h-screen w-screen">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-400 opacity-20 blur-[100px]"></div></div>
       <NavbarRegister />
-      <div className="flex flex-col grow justify-center items-center">
-      <div className="bg-white px-8 pb-12 pt-8 rounded-xl shadow-md shadow-fuchsia-300">
+      <div className="flex grow w-screen">
+      <div className="w-1/2 flex items-center justify-center">
+          <img src={registerimg} alt="" className="mb-12" />
+        </div>
+        <div className="flex flex-col grow justify-center items-center mr-10">
+      <div className="bg-white px-8 pb-12 pt-8 rounded-xl shadow-md shadow-gray-300">
         <h2 className="text-xl font-semibold mb-4">Register as Student / Teacher</h2>
         <form onSubmit={handleSubmit} className="space-y-4 w-full flex flex-col gap-2 items-start">
           <input
@@ -70,7 +75,7 @@ const Register = () => {
             <option value="STUDENT">Student</option>
             <option value="TEACHER">Teacher</option>
           </select>
-          <button type="submit" className="bg-fuchsia-200 text-fuchsia-600 hover:bg-fuchsia-600 hover:shadow-md hover:shadow-fuchsia-200 hover:text-white px-4 py-2 rounded w-full">
+          <button type="submit" className="bg-gray-300 text-gray-600 hover:bg-gray-600 hover:shadow-md hover:shadow-gray-200 hover:text-white px-4 py-2 rounded w-full">
           {loading ? (
                 <div className="flex items-center justify-center">
                   <span className="loader border-t-transparent border-2  border-white w-4 h-4 rounded-full animate-spin mr-2"></span>
@@ -81,6 +86,7 @@ const Register = () => {
               )}
           </button>
         </form>
+      </div>
       </div>
       </div>
     </div>

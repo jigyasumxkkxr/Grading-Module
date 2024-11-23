@@ -6,6 +6,9 @@ import feature from "../assets/image 930.svg"
 import technology from "../assets/image 644.svg"
 import endpoint from "../assets/image 994.svg"
 import call from "../assets/image 1194.svg"
+import admin from "../assets/image 641.svg"
+import teacher from "../assets/image 2314.svg"
+import student from "../assets/image 2304.svg"
 
 export const Docs = () => {
     return(
@@ -30,21 +33,21 @@ export const Docs = () => {
                 <div>
                 <p className="pl-10">This project is a module for a Grading System, designed to streamline the process of course management and grade assignment. It provides three roles: Admin, Teacher, and Student, each with distinct responsibilities:</p>
                 <div className="pt-3 flex flex-col">
-                <div className="flex items-center pl-5 gap-1">
-                    <img src={tick} alt="" className="h-4" />
+                <div className="flex items-center pl-4 gap-1">
+                    <img src={admin} alt="" className="h-5 " />
                 <p className="text-lg font-semibold ">Admin:</p>
                 </div>  
                     <p className="text-md pl-12">Design new courses.</p>
                     <p className="text-md pl-12">Assign courses to teachers.</p>
-                    <div className="flex items-center pl-5 gap-1">
-                    <img src={tick} alt="" className="h-4" />
+                    <div className="flex items-center pl-4 gap-1">
+                    <img src={teacher} alt="" className="h-5" />
                 <p className="text-lg font-semibold ">Teacher:</p>
                 </div>
 
                     <p className="text-md pl-12">Register in the system.</p>
                     <p className="text-md pl-12">Assign grades to students for the courses they teach.</p>
-                    <div className="flex items-center pl-5 gap-1">
-                    <img src={tick} alt="" className="h-4" />
+                    <div className="flex items-center pl-4 gap-1">
+                    <img src={student} alt="" className="h-5" />
                 <p className="text-lg font-semibold ">Student:</p>
                 </div>
 
@@ -199,6 +202,10 @@ export const Docs = () => {
                             <p className="text-lg font-semibold ">Student-Specific Endpoints :</p>
                         </div>
                         <div className="flex items-center gap-2 mt-2">
+                            <p className="text-sm ml-12 bg-green-200 text-green-700 px-2 py-1 rounded-md cursor-none hover:bg-green-600 hover:text-white">GET /api/student/course/:courseId/grade :</p>
+                            <p className="text-md">Enable students to view their grades for specific courses.</p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
                             <p className="text-sm ml-12 bg-yellow-200 text-yellow-700 px-2 py-1 rounded-md cursor-none hover:bg-yellow-600 hover:text-white">POST /api/student/course :</p>
                             <p className="text-md">Enrolls the logged-in student in a course by providing the course ID.</p>
                         </div>
@@ -218,6 +225,15 @@ export const Docs = () => {
                             <p className="text-sm ml-12 bg-green-200 text-green-700 px-2 py-1 rounded-md cursor-none hover:bg-green-600 hover:text-white">GET /api/teacher/courses :</p>
                             <p className="text-md">Fetches all courses taught by the logged-in teacher.</p>
                         </div>
+                        <div className="flex items-center gap-2 mt-2">
+                            <p className="text-sm ml-12 bg-green-200 text-green-700 px-2 py-1 rounded-md cursor-none hover:bg-green-600 hover:text-white">GET /api/teacher/course/:courseId/students :</p>
+                            <p className="text-md">Fetches all students enrolled in that specific course.</p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                            <p className="text-sm ml-12 bg-yellow-200 text-yellow-700 px-2 py-1 rounded-md cursor-none hover:bg-yellow-600 hover:text-white">POST /api/teacher/course/:courseId/student/:studentId/grade :</p>
+                            <p className="text-md">Allow teachers to assign grades to students for specific courses.</p>
+                        </div>
+                        
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
                             <p className="text-lg font-semibold ">Common Endpoints (Accessible by Multiple Roles) :</p>
@@ -254,7 +270,7 @@ export const Docs = () => {
                         </div>
                         <div className="flex items-center pt-3 pl-5 gap-1">
                             <img src={tick} alt="" className="h-4" />
-                            <p className="text-lg font-semibold ">Shubham Mandal :</p>
+                            <p className="text-lg font-semibold ">Subham Mandal :</p>
                             <p>2022umt0183@iitjammu.ac.in</p>
                         </div>
                 </div>

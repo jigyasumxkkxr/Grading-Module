@@ -1,5 +1,6 @@
 import Navbar from "./Navbar"
-import homeImage from "../assets/react.png"
+import homeImage from "../assets/e59f44e3ff68bf71eee39fe20b77d4aa-sticker 1.png"
+import homeImage2 from "../assets/80fed7ce524da98a7f9dc74d1a000a1c-sticker 1.png"
 import { Link } from "react-router-dom"
 
 
@@ -9,8 +10,9 @@ export const Home = () => {
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
             <Navbar />
             <div className=" h-full w-full grow flex items-center justify-around gap-12">
-                <div className="h-full"> 
-                    <img src={homeImage} alt="" className="h-96" />
+                <div className="h-full flex"> 
+                    <img src={homeImage} alt="" className="h-96 pl-4 pb-4" />
+                    <img src={homeImage2} alt="" className="h-96 pl-4 pb-4" />
                 </div>
                 <div className="flex flex-col justify-start text-center gap-6">
                     <div>
@@ -24,7 +26,7 @@ export const Home = () => {
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center">
                             
-                            <div className="text-2xl px-2 font-semibold hover:bg-black hover:text-white">
+                            <div className="text-2xl px-2 font-semibold hover:bg-black hover:text-white hover:cursor-none">
                                 MODULE FOR GRADING AND GRADESHEET
                             </div>
                         </div>
@@ -60,7 +62,7 @@ export const Home = () => {
                                     Sutar Pranav Prakash
                                 </div>
                                 <div>
-                                    Shubham Mandal
+                                    Subham Mandal
                                 </div>
                             </div>
                         </div>

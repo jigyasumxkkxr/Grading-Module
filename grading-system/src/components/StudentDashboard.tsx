@@ -55,46 +55,86 @@ const StudentDashboard: React.FC = () => {
 
   const enrollInCourse = async (courseId: number) => {
     try {
+      // Optimistic UI Update
+      const enrolledCourse = courses.find((course) => course.id === courseId);
+      if (enrolledCourse) {
+        setEnrolledCourses((prevCourses) => [
+          ...prevCourses,
+          { ...enrolledCourse, enrolled: true },
+        ]);
+      }
+  
+      // Make API call
       const response = await axios.post(
         "https://backendhono.medium-jigyasu.workers.dev/api/student/course",
         { courseId },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
-
+  
       alert(response.data.message);
-
-      // Update the enrolled courses list
-      const enrolledCourse = courses.find((course) => course.id === courseId);
-      if (enrolledCourse) {
-        setEnrolledCourses((prevCourses) => [
-          ...prevCourses,
-          { ...enrolledCourse, enrolled: true }, // Ensure grades is an empty array
-        ]);
-      }
+  
+      // Refetch updated data
+      const enrolledResponse = await axios.get(
+        "https://backendhono.medium-jigyasu.workers.dev/api/student/courses",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setEnrolledCourses(enrolledResponse.data);
     } catch (error) {
       console.error("Error enrolling in course:", error);
       alert("Failed to enroll in course");
+  
+      // Revert optimistic UI update in case of error
+      const response = await axios.get(
+        "https://backendhono.medium-jigyasu.workers.dev/api/student/courses",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setEnrolledCourses(response.data);
     }
   };
+  
 
   const deEnrollFromCourse = async (courseId: number) => {
     try {
+      // Optimistic UI Update
+      setEnrolledCourses((prevCourses) =>
+        prevCourses.filter((course) => course.id !== courseId)
+      );
+  
+      // Make API call
       const response = await axios.delete(
         `https://backendhono.medium-jigyasu.workers.dev/api/student/course/${courseId}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
-
+  
       alert(response.data.message);
-
-      // Remove course from enrolled courses
-      setEnrolledCourses((prevCourses) =>
-        prevCourses.filter((course) => course.id !== courseId)
+  
+      // Refetch updated data
+      const enrolledResponse = await axios.get(
+        "https://backendhono.medium-jigyasu.workers.dev/api/student/courses",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
+      setEnrolledCourses(enrolledResponse.data);
     } catch (error) {
       console.error("Error de-enrolling from course:", error);
       alert("Failed to de-enroll from course");
+  
+      // Revert optimistic UI update in case of error
+      const response = await axios.get(
+        "https://backendhono.medium-jigyasu.workers.dev/api/student/courses",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setEnrolledCourses(response.data);
     }
   };
+  
 
   const convertMarksToGrade = (marks: number): string => {
     if (marks >= 90) return "A";
@@ -113,7 +153,7 @@ const StudentDashboard: React.FC = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="w-16 h-16 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
