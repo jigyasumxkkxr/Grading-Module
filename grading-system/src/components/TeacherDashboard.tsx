@@ -155,7 +155,7 @@ const TeacherDashboard: React.FC = () => {
           {/* Courses Assigned to Teacher */}
           <div className="space-y-4">
             <h3 className="text-lg pt-4 text-center">Assigned Courses</h3>
-            {courses.map((course) => (
+            {courses.length > 0 ? (courses.map((course) => (
               <div
                 key={course.id}
                 className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2 cursor-pointer"
@@ -164,7 +164,9 @@ const TeacherDashboard: React.FC = () => {
                 <h4 className="text-lg font-semibold">{course.title}</h4>
                 <p>{course.description}</p>
               </div>
-            ))}
+            ))) : (
+              <p className="text-center text-red-500">No Courses assigned.</p>
+            )}
           </div>
 
           {/* Students Enrolled in the Selected Course */}
@@ -172,17 +174,21 @@ const TeacherDashboard: React.FC = () => {
             {selectedCourse && (
               <>
                 <h3 className="text-lg pt-4 text-center">Enrolled Students - {selectedCourse.title}</h3>
-                {students.map((student) => (
-                  <div key={student.id} className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2 flex items-center justify-between">
-                    <h4 className="text-lg font-semibold">{student.name}</h4>
-                    <button
-                      onClick={() => handleGradeChange(student)}
-                      className="text-blue-500 bg-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1 rounded"
-                    >
-                      Assign Grade
-                    </button>
-                  </div>
-                ))}
+                {students.length > 0 ? (
+                  students.map((student) => (
+                    <div key={student.id} className="p-4 rounded shadow-md bg-white shadow-fuchsia-200 space-y-2 flex items-center justify-between">
+                      <h4 className="text-lg font-semibold">{student.name}</h4>
+                      <button
+                        onClick={() => handleGradeChange(student)}
+                        className="text-blue-500 bg-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1 rounded"
+                      >
+                        Assign Grade
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center text-red-500">No students opted for this course</p>
+                )}
 
                 {selectedStudent && (
                   <div className="mt-4">

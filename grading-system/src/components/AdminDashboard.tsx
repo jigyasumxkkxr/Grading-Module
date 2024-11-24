@@ -25,6 +25,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -73,6 +74,7 @@ const AdminDashboard = () => {
   // Handle form submission for course creation or update
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoadingCreate(true)
     if (selectedCourse) {
       // Update existing course
       try {
@@ -92,6 +94,8 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error("Error updating course:", error);
         alert("Failed to update course");
+      } finally {
+        setLoadingCreate(false);
       }
     } else {
       // Create new course
@@ -111,6 +115,8 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error("Error creating course:", error);
         alert("Failed to create course");
+      } finally {
+        setLoadingCreate(false);
       }
     }
   };
@@ -200,8 +206,19 @@ const AdminDashboard = () => {
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             className="p-2 border rounded w-full"
           />
-          <button type="submit" className="bg-fuchsia-200 text-fuchsia-600 hover:text-white hover:bg-fuchsia-600 px-4 py-2 rounded">
-            {selectedCourse ? "Update Course" : "Create Course"}
+          <button
+            type="submit"
+            className="bg-fuchsia-200 text-fuchsia-600 hover:text-white hover:bg-fuchsia-600 px-4 py-2 rounded"
+            onClick={handleSubmit}
+            disabled={loadingCreate} // Disable button when loading
+          >
+            {loadingCreate
+              ? selectedCourse
+                ? "Updating..."
+                : "Creating..."
+              : selectedCourse
+              ? "Update Course"
+              : "Create Course"}
           </button>
         </form>
       </div>
