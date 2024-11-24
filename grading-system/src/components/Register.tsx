@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavbarRegister from "./NavbarRegister";
-import registerimg from "../assets/1866843a05019cd68f48f4fde5232f8c-sticker 1.png"
+import registerimg from "../assets/Drawkit-Illustrations-Education-1-10 1 (3).png"
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -39,9 +39,7 @@ const Register = () => {
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-teal-400 opacity-20 blur-[100px]"></div></div>
       <NavbarRegister />
       <div className="flex grow w-screen">
-      <div className="w-1/2 flex items-center justify-center">
-          <img src={registerimg} alt="" className="mb-12" />
-        </div>
+      
         <div className="flex flex-col grow justify-center items-center mr-10">
       <div className="bg-white px-8 pb-12 pt-8 rounded-xl shadow-md shadow-gray-300">
         <h2 className="text-xl font-semibold mb-4">Register as Student / Teacher</h2>
@@ -88,6 +86,9 @@ const Register = () => {
         </form>
       </div>
       </div>
+      <div className="w-1/2 flex items-center justify-center">
+          <img src={registerimg} alt="" className="mb-12" />
+        </div>
       </div>
     </div>
   );

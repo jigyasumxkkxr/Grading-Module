@@ -1,6 +1,5 @@
 import Navbar from "./Navbar"
-import homeImage from "../assets/e59f44e3ff68bf71eee39fe20b77d4aa-sticker 1.png"
-import homeImage2 from "../assets/80fed7ce524da98a7f9dc74d1a000a1c-sticker 1.png"
+import homeImage from "../assets/Drawkit-Illustrations-Education-1-10 1 (1).png"
 import { Link } from "react-router-dom"
 
 
@@ -12,7 +11,6 @@ export const Home = () => {
             <div className=" h-full w-full grow flex items-center justify-around gap-12">
                 <div className="h-full flex"> 
                     <img src={homeImage} alt="" className="h-96 pl-4 pb-4" />
-                    <img src={homeImage2} alt="" className="h-96 pl-4 pb-4" />
                 </div>
                 <div className="flex flex-col justify-start text-center gap-6">
                     <div>

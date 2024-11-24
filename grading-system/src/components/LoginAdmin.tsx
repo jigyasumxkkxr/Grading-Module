@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../api";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import adminimg from "../assets/413827ca20a1a0a5038bc8f95d0234a6-sticker 1.png"
+import adminimg from "../assets/Drawkit-Illustrations-Education-1-10 1 (4).png"
 
 const LoginAdmin = () => {
   const [form, setForm] = useState({ email: "", password: "" });

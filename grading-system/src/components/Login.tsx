@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../api";
 import { useNavigate } from "react-router-dom";
 import NavbarLogin from "./NavbarLogin";
-import loginimg from "../assets/e3c6ec0912f2c80d5595c851f7a5baea-sticker 1.png"
+import loginimg from "../assets/Drawkit-Illustrations-Education-1-10 1 (2).png"
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
